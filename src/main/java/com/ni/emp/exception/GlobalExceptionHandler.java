@@ -3,6 +3,7 @@ package com.ni.emp.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,14 +36,15 @@ public class GlobalExceptionHandler {
 		
 	}
 	
-	@ExceptionHandler(HttpMessageConversionException.class)
-	public ResponseEntity<String> httMessageConversionException(HttpMessageConversionException e){
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<String> httMessageConversionException(HttpMessageNotReadableException e){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your payload is not a valid representation. Please check for error.");
 		
 	}
 	
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<String> handleGlobalException(Throwable t){
+		System.out.println("Executing global exception...");
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(t.getMessage());
 		
 	}

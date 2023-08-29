@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,7 @@ public class EmployeeController {
 			throw new EmployeeSearchException(
 					"There is an error while searching for employee. Please contact administrator.");
 		}
+		
 		return ResponseEntity.ok(emp.get());
 	}
 
@@ -56,8 +58,6 @@ public class EmployeeController {
 		try {
 			empRecord = employeeService.createEmployee(emp);
 
-		} catch (HttpMessageConversionException hmce) {
-			throw new HttpMessageConversionException("Your payload is not a valid representation. Please check for error.");
 		} catch (EmployeeAlreadyExistsException ea) {
 			throw ea;
 		} catch (DataIntegrityViolationException dve) {

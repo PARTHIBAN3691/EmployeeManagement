@@ -3,6 +3,7 @@ package com.ni.emp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class EmployeeManagementApplication {
 
